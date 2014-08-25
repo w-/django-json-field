@@ -14,6 +14,12 @@ class JSONFormField(fields.Field):
         self.evaluate = kwargs.pop('evaluate', False)
         self.encoder_kwargs = kwargs.pop('encoder_kwargs', {'cls':JSONEncoder})
         self.decoder_kwargs = kwargs.pop('decoder_kwargs', {'cls':JSONDecoder, 'parse_float':Decimal})
+        
+        # fix for django1.7 compatibility
+        # this only happens for textarea widget.
+        # see release notes, search for max_length
+        kwargs.pop('max_length', None)
+        
         super(JSONFormField, self).__init__(*args, **kwargs)
 
     def clean(self, value):
