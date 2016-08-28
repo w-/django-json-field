@@ -11,10 +11,10 @@ class JSONFormField(fields.Field):
 
     def __init__(self, *args, **kwargs):
         from .fields import JSONEncoder, JSONDecoder
+
         self.evaluate = kwargs.pop('evaluate', False)
         self.encoder_kwargs = kwargs.pop('encoder_kwargs', {'cls':JSONEncoder})
         self.decoder_kwargs = kwargs.pop('decoder_kwargs', {'cls':JSONDecoder, 'parse_float':Decimal})
-        
         # fix for django1.7 compatibility
         # this only happens for textarea widget.
         # see release notes, search for max_length
