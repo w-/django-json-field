@@ -2,7 +2,14 @@ try:
     import json
 except ImportError:  # python < 2.6
     from django.utils import simplejson as json
-from django.forms import fields, util
+
+from django.forms import fields
+import warnings
+try:
+    from django.forms import util
+except (Warning, ImportError):
+    # django < 1.7
+    from django.forms import utils as util
 
 import datetime
 from decimal import Decimal
